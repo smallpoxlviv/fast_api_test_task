@@ -1,4 +1,6 @@
 from pydantic import BaseModel
+import typing
+from .book_repository import BookRepository
 
 
 class UserRepositoryBase(BaseModel):
@@ -7,6 +9,7 @@ class UserRepositoryBase(BaseModel):
 
 class UserRepository(UserRepositoryBase):
     id: int
+    books: typing.List[BookRepository]
 
     class Config:
         orm_mode = True

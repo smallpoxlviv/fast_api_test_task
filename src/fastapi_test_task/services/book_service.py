@@ -10,7 +10,7 @@ class BookService:
     def __init__(self, session: Session = Depends(get_session)):
         self.session = session
 
-    def _get(self, book_id: int) -> Book:
+    def __get(self, book_id: int) -> Book:
         book = (
             self.session
             .query(Book)
@@ -30,7 +30,7 @@ class BookService:
         return books
 
     def get(self, book_id: int) -> Book:
-        return self._get(book_id)   
+        return self.__get(book_id)   
 
     def create(self, book_data: BookRepositoryCreate) -> Book:
         book = Book(**book_data.dict())
@@ -38,15 +38,15 @@ class BookService:
         self.session.commit()
         return book
 
-    def update(self, book_id: int, book_data: BookRepositoryUpdate):
-        book = self._get(book_id)
+    def update(self, book_id: int, book_data: BookRepositoryUpdate) -> Book:
+        book = self.__get(book_id)
         for field, value in book_data:
             setattr(book, field, value)
         self.session.commit()
         return book    
 
     def delete(self, book_id: int):
-        book = self._get(book_id)
+        book = self.__get(book_id)
         self.session.delete(book)
         self.session.commit()
         return Response(status_code=status.HTTP_204_NO_CONTENT)

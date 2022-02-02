@@ -5,7 +5,7 @@ from fastapi.security import OAuth2PasswordRequestForm
 from settings import settings
 from api import router
 from api.auth import is_token_valid
- 
+
 
 app = FastAPI()
 app.include_router(router)
