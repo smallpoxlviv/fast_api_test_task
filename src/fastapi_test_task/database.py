@@ -11,7 +11,8 @@ engine = create_engine(
 
 Session = sessionmaker(
     engine,
-    autocommit=False
+    autocommit=False, 
+    autoflush=False
 )
 
 def get_session() -> Session:
